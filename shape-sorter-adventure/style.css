@@ -1,0 +1,155 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f0f8ff; /* Light blue background */
+    color: #333;
+}
+
+.game-container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: #4CAF50; /* Green title */
+    margin-bottom: 20px;
+    font-size: 2.5em;
+}
+
+#score-display {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #FF5722; /* Orange score */
+    margin-bottom: 20px;
+}
+
+.game-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+#shape-display {
+    min-height: 150px; /* Ensure space even when empty */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.current-shape {
+    width: 150px;
+    height: 150px;
+    background-color: #add8e6; /* Light blue background for shape */
+    border: 5px solid #2196F3; /* Blue border */
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    cursor: pointer; /* Indicates it's interactive, even if single-switch */
+    position: relative; /* For the highlight */
+}
+
+.current-shape img {
+    max-width: 80%;
+    max-height: 80%;
+}
+
+.current-shape.highlighted {
+    transform: scale(1.1);
+    border-color: #FFD700; /* Gold highlight */
+    box-shadow: 0 0 20px #FFD700;
+}
+
+.target-area {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    width: 100%;
+}
+
+.target-slot {
+    width: 150px;
+    height: 150px;
+    border: 3px dashed #9E9E9E; /* Dashed grey border for slots */
+    border-radius: 10px;
+    background-color: #e0e0e0; /* Lighter grey background for slots */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    position: relative; /* For the highlight */
+}
+
+.target-slot[data-shape="circle"]::after {
+    content: ' ';
+    width: 70%;
+    height: 70%;
+    border: 3px solid #9E9E9E;
+    border-radius: 50%;
+    box-sizing: border-box;
+}
+.target-slot[data-shape="square"]::after {
+    content: ' ';
+    width: 70%;
+    height: 70%;
+    border: 3px solid #9E9E9E;
+    box-sizing: border-box;
+}
+.target-slot[data-shape="triangle"]::after {
+    content: ' ';
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 86.6px solid #9E9E9E; /* Approx height for equilateral triangle */
+    transform: scale(0.8); /* Adjust size to fit */
+}
+
+
+.target-slot.highlighted {
+    background-color: #FFD700; /* Gold background for highlighted slot */
+    border-color: #FFC107; /* Darker gold border */
+    transform: scale(1.05);
+}
+
+#instructions {
+    margin-top: 30px;
+    font-size: 1.5em;
+    color: #607D8B; /* Grey text */
+}
+
+/* Correct feedback animation */
+.correct-match {
+    animation: pulse-green 0.5s ease-out forwards;
+}
+
+@keyframes pulse-green {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(0,255,0,0); }
+    50% { transform: scale(1.1); box-shadow: 0 0 30px rgba(0,255,0,0.8); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(0,255,0,0); }
+}
+
+/* Incorrect feedback animation */
+.incorrect-match {
+    animation: shake-red 0.5s ease-out forwards;
+}
+
+@keyframes shake-red {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); background-color: #ffcccc; }
+    50% { transform: translateX(10px); background-color: #ffcccc; }
+    75% { transform: translateX(-10px); background-color: #ffcccc; }
+}
